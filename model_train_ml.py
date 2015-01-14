@@ -51,12 +51,12 @@ def SVMAccuracy(train_df,test_df):
 def data_clean(file_path):
 	df = pd.read_csv(file_path,header =0)
 	df['Gender'] = df['Sex'].map( {'female': 0, 'male': 1} ).astype(int)
-	if len(df.Embarked[df.Embarked.isnull()]) > 0:
-		df.Embarked[df.Embarked.isnull()] = df.Embarked.dropna().mode().values
+	#if len(df.Embarked[df.Embarked.isnull()]) > 0:
+	#	df.Embarked[df.Embarked.isnull()] = df.Embarked.dropna().mode().values
 
-	Ports = list(enumerate(np.unique(df['Embarked'])))    # determine all values of Embarked,
-	Ports_dict = { name : i for i, name in Ports }              # set up a dictionary in the form  Ports : index
-	df.Embarked = df.Embarked.map( lambda x: Ports_dict[x]).astype(int)
+	#Ports = list(enumerate(np.unique(df['Embarked'])))    # determine all values of Embarked,
+	#Ports_dict = { name : i for i, name in Ports }              # set up a dictionary in the form  Ports : index
+	#df.Embarked = df.Embarked.map( lambda x: Ports_dict[x]).astype(int)
 
 	# All the ages with no data -> make the median of all Ages
 	median_age = df['Age'].dropna().median()
@@ -65,7 +65,7 @@ def data_clean(file_path):
 
 	passengerIds = df['PassengerId']
 	# Remove the Name column, Cabin, Ticket, and Sex (since I copied and filled it to Gender)
-	df = df.drop(['Name', 'Sex', 'Ticket', 'Cabin', 'PassengerId'], axis=1) 
+	df = df.drop(['Name', 'Sex', 'Ticket', 'Cabin','Fare','Embarked', 'PassengerId'], axis=1) 
 
 	return df, passengerIds
 
